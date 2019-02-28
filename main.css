@@ -14,6 +14,10 @@ button:hover {
   cursor: pointer;
 }
 
+.hidden {
+  display: none;
+}
+
 #shopping-list-item {
   width: 250px;
 }
@@ -41,6 +45,11 @@ button:hover {
   font-size: 20px;
   margin-bottom: 15px;
 }
+
+.shopping-item button {
+  margin-top: 0;
+}
+
 
 .shopping-item__checked {
   text-decoration: line-through;
