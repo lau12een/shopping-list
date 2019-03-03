@@ -1,38 +1,42 @@
-'use strict';
-
-let STORE = {
-  items: [
-    {name: 'apples', isChecked: false,
-    isEditing: false },
-    { name: 'oranges', isChecked: false,
-   isEditing:false },
-    {name: 'milk', isChecked: true, 
-    isEditing: false },
-    {name: 'bread', isChecked: falst,
-    isEditing: false }
-  ],
-  hideChecked: false,
-    searchTerm: null
-};
-
-// store editing function
-// this section has the side-effect of changing the STORE values
-
-function addListItem(itemName) {
-  console.log(`Adding ${itemName} to shopping list.`);
-
-  STORE.items.push({
-    name: itemName,
-    isChecked: false,
-    isEditing: false 
-  });
-}
-
-// this area reserved for deleteListItem function
-
-function editName(itemIndex, newName) {
-  let currentItem = STORE.items[itemIdex];
-  console.log(`Renaming ${currentItem.name} to ${newName}`);
-  STORE.items[itemIndex].name = newName;
-}
-
+$(function(){
+  
+/**********EVENT HANDLING*********/
+    $('#js-shopping-list-form').submit(function(event) {
+      
+      event.preventDefault();
+      
+      const listItem = $('.js-shopping-list-entry').val();
+      
+      //The val() is used to return or set the value of attribute for the selected elements.
+       $('.js-shopping-list-entry').val('');
+      
+      $('.shopping-list').append(
+          `<li>
+            <span class="shopping-item">${listItem}</span>
+            <div class="shopping-item-controls">
+              <button class="shopping-item-toggle">
+                <span class="button-label">check</span>
+              </button>
+              <button class="shopping-item-delete">
+                <span class="button-label">delete</span>
+              </button>
+            </div>
+          </li>`);
+      });
+      
+      // this is the trigger to delete an item
+       $('.shopping-list').on('click', '.shopping-item-delete', function(event) {
+    
+        // "this" will look for the closest parent `li` element and remove the shopping list item.
+        $(this).closest('li').remove();
+      });
+      
+      // this is the trigger for the checked item
+        $('.shopping-list').on('click', '.shopping-item-toggle', function(event) {
+    
+        // "this" will go to the parent li --> find the child`.shopping-item`  and
+        // toggle the `.shopping-item__checked` class.
+        $(this).closest('li').find('.shopping-item').toggleClass('shopping-item__checked');
+      });
+      
+    });
